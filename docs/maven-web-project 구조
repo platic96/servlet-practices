@@ -1,0 +1,32 @@
+helloweb
+	|-----[/src]
+	|		|--- [/main]
+	|		|		|--- [/java]
+	|		|		|		|--- com
+	|		|		|				|--- /saltlux
+	|		|		|						|--- /controller
+	|		|		|		|						|--- HellowServlet.java				
+	|		|		|--- [/resource] 
+	|		|		|		|--- /config
+	|		|		|			|--- db.properties
+	|		|		|--- [/webapp]
+	|		|		|		|--- index.jsp
+	|		|		|		|--- /WEB-INF
+	|		|		|				|--- /lib
+	|		|		|				|		|--- /mysql-jdbc-connector.jar
+	|		|		|				|--- /classes
+	|		|		|						|--- com
+	|		|		|								|--- /saltlux
+	|		|		|										|--- /controller
+	|		|		|		|										|--- HellowServlet.java
+	|		|		|					
+	|		|--- /test
+	|		|				|--- com
+	|		|		|				|--- /saltlux
+	|		|		|						|--- /controller
+	|		|		|		|						|--- HellowServlettest.java
+	|		|		|--- resourse
+	
+	소스 = package
+		  + code(*.java)
+		  + resources(*.xml, *.properties, *.yml)
