@@ -225,16 +225,39 @@ public class BoardDao {
 
 	public boolean InsertData(BoardVo vo, boolean answer) {
 		PreparedStatement pstmt = null;
+		boolean result = false;
 		try {
 			conn = getConnection();
 
 			String sql = "";
 			if (answer == false) {
-				sql = "insert into board values(null,?,?,(select max(group_no) from board)+1,1,1,now(),?,0);";
+				sql = "insert into board values(null,?,?,(select max(group_no) from board a)+1,1,1,now(),?,0);";
 				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, vo.getUser_no());
+				pstmt.setString(2, vo.getTitle());
+				pstmt.setString(3, vo.getContext());
+				
+				int c = pstmt.executeUpdate();
+				result = c==1;
+				return result;
 			}
 			else {
-				return false;
+				sql = "select group_no,order_no,depth from board where no=?;";
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, vo.getNo());
+				ResultSet rs = pstmt.executeQuery();
+				if(rs.next()) {
+					int group_no = rs.getInt(1);
+					int order_no = rs.getInt(2);
+					int depth = rs.getInt(3);
+					
+					order_no=order_no+1;
+					depth=depth+1;
+					sql = "update board set order_no = order_no+1 where group_no=? and order_no>=?;";
+					PreparedStatement pstmt1 = conn.prepareStatement(sql);
+					pstmt1.setInt(1, group_no);
+					pstmt1.setInt(2,order_no);
+				}
 			}
 		} catch (SQLException e) {
 			System.out.println("error" + e.getLocalizedMessage());

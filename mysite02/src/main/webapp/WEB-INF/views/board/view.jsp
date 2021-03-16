@@ -39,7 +39,7 @@ UserVo authUser = (UserVo) session.getAttribute("authUser");
 					<a href="${pageContext.request.contextPath }/board">글목록</a>
 					<c:if test="${authUser != null}">
 						<c:if test="${authUser.no == vo.no }"><a href="${pageContext.request.contextPath }/board?a=modify&no=${vo.no}&title=${vo.title}&context=${vo.context}">글수정</a></c:if>
-						<a href="${pageContext.request.contextPath }/board?a=writeform&answer=true">답글</a>
+						<a href="${pageContext.request.contextPath }/board?a=writeform&answer=true&no=${vo.no	}">답글</a>
 					</c:if>
 
 				</div>

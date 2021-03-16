@@ -17,7 +17,6 @@ import com.saltlux.web.mvc.WebUtill;
  */
 public class BoardServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	boolean answer = false;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -26,14 +25,10 @@ public class BoardServlet extends HttpServlet {
 
 		String action = request.getParameter("a");
 		if ("writeform".equals(action)) {
-			if(request.getParameter("answer").equals("false")) {
-				answer = false;
-				System.out.println("댓글");
+			if(request.getParameter("answer").equals("true")) {
+				request.setAttribute("no", request.getParameter("no"));
 			}
-			else {
-				answer = true;
-				System.out.println("답글");
-			}
+			request.setAttribute("answer", request.getParameter("answer"));
 			WebUtill.forward("WEB-INF/views/board/writeform.jsp", request, response);
 		} else if ("view".equals(action)) {
 			String no = request.getParameter("no");
@@ -87,18 +82,23 @@ public class BoardServlet extends HttpServlet {
 		else if("write".equals(action)) {
 			String title = request.getParameter("title");
 			String content = request.getParameter("content");
+			String user_no = request.getParameter("user_no");
 			String no = request.getParameter("no");
-			System.out.println(title + " "+ content + " " + no);
+			boolean answer = false;
+			answer = Boolean.parseBoolean(request.getParameter("answer"));
 			int number = -1;
-			if (no != null && no.matches("\\d*"))
-				number = Integer.parseInt(no);
+			if (user_no != null && user_no.matches("\\d*"))
+				number = Integer.parseInt(user_no);
 			
 			BoardVo vo = new BoardVo();
-			vo.setNo(number);
+			if(request.getParameter("answer").equals("true")){
+				vo.setNo(Integer.parseInt(no));
+			}
+			vo.setUser_no(number);
 			vo.setTitle(title);
 			vo.setContext(content);
-			
 			new BoardDao().InsertData(vo, answer);
+			WebUtill.redirect(request.getContextPath()+"/board", request, response);
 		}
 		else {
 			List<BoardVo> list = new BoardDao().findAll();
