@@ -20,8 +20,7 @@ UserVo authUser = (UserVo) session.getAttribute("authUser");
 		<c:import url="/WEB-INF/views/includes/header.jsp" />
 		<div id="content">
 			<div id="board">
-				<form id="search_form"
-					action="${ pageContext.request.contextPath}/board" method="post">
+				<form id="search_form" action="${ pageContext.request.contextPath}/board" method="post">
 					<input type="text" id="kwd" name="kwd" value=""> <input
 						type="submit" value="찾기">
 				</form>
@@ -38,7 +37,7 @@ UserVo authUser = (UserVo) session.getAttribute("authUser");
 						<c:set var="count" value="${fn:length(list) }"></c:set>
 						<c:forEach items="${list }" var="vo" varStatus="status">
 							<tr>
-								<td>${(status.index+(p*1))}</td>
+								<td>${(status.index*p)+1}</td>
 								<c:choose>
 									<c:when test="${vo.depth>1 }">
 										<td style="text-align: left"><a
@@ -67,49 +66,13 @@ UserVo authUser = (UserVo) session.getAttribute("authUser");
 				</table>
 				<div class="pager">
 					<ul>
-						<c:if test="${p != 1 }">
-							<li><a href="">◀</a></li>
-						</c:if>
-						<c:choose>
-							<c:when test="${p==1 }">
-								<c:forEach begin="${p }" end="${p+2}" varStatus="status">
-									<c:if test="${p==status.index }">
-										<li class="selected">${status.index}</li>
-									</c:if>
-									<c:if test="${p!=status.index && size/4+1>status.index }">
-										<li><a
-											href="${ pageContext.request.contextPath}/board?a=index&p=${status.index}">${status.index}</a></li>
-									</c:if>
-								</c:forEach>
-							</c:when>
-							<c:when test="${p>1 && p<size/4 }">
-								<c:forEach begin="${p-1 }" end="${p+1 }" varStatus="status">
-									<c:if test="${p==status.index }">
-										<li class="selected">${status.index}</li>
-									</c:if>
-									<c:if test="${p!=status.index && size/4+1>status.index  }">
-										<li><a
-											href="${ pageContext.request.contextPath}/board?a=index&p=${status.index}">${status.index}</a></li>
-									</c:if>
-								</c:forEach>
-							</c:when>
-								<c:when test="${p>=size/4 }">
-								<c:forEach begin="${p-2 }" end="${p }" varStatus="status">
-									<c:if test="${p==status.index }">
-										<li class="selected">${status.index}</li>
-									</c:if>
-									<c:if test="${p!=status.index}">
-										<li><a
-											href="${ pageContext.request.contextPath}/board?a=index&p=${status.index}">${status.index}</a></li>
-									</c:if>
-								</c:forEach>
-							</c:when>
-						</c:choose>
-						<c:if test="${p<size/4}">
-							<li><a href="">▶</a></li>
-						</c:if>
+						<li><a href="">◀</a></li>
+						<c:set var="count" value="${fn:length(list) }"></c:set>
+						<c:forEach begin="${p }" end="${p+3 }" varStatus="status">
+								<li class="selected"><a
+									href="${ pageContext.request.contextPath}/board?a=index&p=${status.index}">${status.index}</a></li>
+						</c:forEach>
 					</ul>
-
 				</div>
 				<div class="bottom">
 					<c:choose>
@@ -119,7 +82,7 @@ UserVo authUser = (UserVo) session.getAttribute("authUser");
 						</c:when>
 						<c:otherwise>
 							<a
-								href="${ pageContext.request.contextPath}/board?a=writeform&answer=false&p=${p}"
+								href="${ pageContext.request.contextPath}/board?a=writeform&answer=false"
 								id="new-book">글쓰기</a>
 						</c:otherwise>
 					</c:choose>

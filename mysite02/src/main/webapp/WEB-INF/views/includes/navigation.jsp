@@ -8,6 +8,6 @@
 			<ul>
 				<li><a href="${ pageContext.request.contextPath}">정민용</a></li>
 				<li><a href="${ pageContext.request.contextPath}/guestbook?a=index">방명록</a></li>
-				<li><a href="${ pageContext.request.contextPath}/board">게시판</a></li>
+				<li><a href="${ pageContext.request.contextPath}/board?a=index&p=1">게시판</a></li>
 			</ul>
 		</div>

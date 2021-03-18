@@ -20,7 +20,7 @@
 		<c:import url="/WEB-INF/views/includes/header.jsp" />
 		<div id="content">
 			<div id="board">
-				<form class="board-form" method="post" action="${pageContext.request.contextPath}/board">
+				<form class="board-form" method="post" action="${pageContext.request.contextPath}/board?a=index&p=1">
 					<input type="hidden" name="a" value="write">
 					<input type="hidden" name="user_no" value="${authUser.no }">
 					<input type="hidden" name="answer" value="${answer}"> 
