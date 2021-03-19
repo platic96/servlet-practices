@@ -40,6 +40,7 @@ public class BoardServlet extends HttpServlet {
 			BoardVo vo = new BoardDao().find(number);
 			new BoardDao().UpdateCount(number);
 			request.setAttribute("vo", vo);
+			request.setAttribute("p", request.getParameter("p"));
 
 			WebUtill.forward("WEB-INF/views/board/view.jsp", request, response);
 			
@@ -74,12 +75,11 @@ public class BoardServlet extends HttpServlet {
 			BoardVo vo = new BoardVo();
 			vo.setNo(number);
 			vo.setTitle(title);
-			System.out.println(context);
 			vo.setContext(context);
 
 			new BoardDao().UpdateData(vo);
 
-			WebUtill.redirect(request.getContextPath() + "/board", request, response);
+			WebUtill.redirect(request.getContextPath() + "/board?a=index&p=1", request, response);
 			
 		} else if ("delete".equals(action)) {
 			
@@ -121,7 +121,7 @@ public class BoardServlet extends HttpServlet {
 			vo.setTitle(title);
 			vo.setContext(content);
 			new BoardDao().InsertData(vo, answer);
-			WebUtill.redirect(request.getContextPath() + "/board", request, response);
+			WebUtill.redirect(request.getContextPath() + "/board?a=index&p=1", request, response);
 			
 		} else if ("kwd".equals(action)) {
 			

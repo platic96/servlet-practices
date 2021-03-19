@@ -23,6 +23,12 @@ public class GuestServlet extends HttpServlet {
 		String action = request.getParameter("a");
 		
 		if("deleteform".equals(action)) {
+			String no = request.getParameter("no");
+			int number = -1;
+			if(no!= null && no.matches("\\d*"))
+			number = Integer.parseInt(no);
+			
+			request.setAttribute("no", number);
 			WebUtill.forward("/WEB-INF/views/guestbook/deleteform.jsp", request, response);	
 		}
 		else if("insert".equals(action)) {

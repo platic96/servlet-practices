@@ -304,7 +304,6 @@ public class BoardDao {
 					int group_no = rs.getInt(1);
 					int order_no = rs.getInt(2);
 					int depth = rs.getInt(3);
-					System.out.println(group_no);
 
 					order_no = order_no + 1;
 					depth = depth + 1;
@@ -442,7 +441,6 @@ public class BoardDao {
 			result = c>=1;
 			if(result)
 			{
-				System.out.println(vo_o.getGroup_no()+" "+vo_o.getOrder_no() + " " + count);
 				sql = "update board set order_no = order_no-? where group_no = ? and order_no>=?;";
 				PreparedStatement pstmt1 = conn.prepareStatement(sql);
 				pstmt1.setInt(1, count);

@@ -3,12 +3,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
    pageEncoding="UTF-8"%>
-	<%
-	String no = request.getParameter("no");
-	int number = -1;
-	if(no!= null && no.matches("\\d*"))
-		number = Integer.parseInt(no);
-	%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -23,7 +17,7 @@
 			<div id="guestbook" class="delete-form">
 				<form method="post" action="${ pageContext.request.contextPath}/guestbook">
 					<input type="hidden" name="a" value="delete">
-					<input type='hidden' name="no" value="<%=number %>">
+					<input type='hidden' name="no" value="${no }">
 					<label>비밀번호</label>
 					<input type="password" name="password">
 					<input type="submit" value="확인">

@@ -38,17 +38,17 @@ UserVo authUser = (UserVo) session.getAttribute("authUser");
 						<c:set var="count" value="${fn:length(list) }"></c:set>
 						<c:forEach items="${list }" var="vo" varStatus="status">
 							<tr>
-								<td>${(status.index+(p*1))}</td>
+								<td>${(status.index+((p-1)*4))+1}</td>
 								<c:choose>
 									<c:when test="${vo.depth>1 }">
 										<td style="text-align: left"><a
-											href="${ pageContext.request.contextPath}/board?a=view&no=${vo.no}"
+											href="${ pageContext.request.contextPath}/board?a=view&no=${vo.no}&p=${p}"
 											style="text-align: left; padding-left: ${(vo.depth-1)*15}px"><img
 												src="${pageContext.request.contextPath }/assets/images/reply.png" />${vo.title}</a></td>
 									</c:when>
 									<c:when test="${vo.depth==1 }">
 										<td style="text-align: left"><a
-											href="${ pageContext.request.contextPath}/board?a=view&no=${vo.no}"
+											href="${ pageContext.request.contextPath}/board?a=view&no=${vo.no}&p=${p}"
 											style="text-align: left; padding-left: 0px">${vo.title}</a></td>
 									</c:when>
 								</c:choose>
@@ -68,7 +68,7 @@ UserVo authUser = (UserVo) session.getAttribute("authUser");
 				<div class="pager">
 					<ul>
 						<c:if test="${p != 1 }">
-							<li><a href="">◀</a></li>
+							<li><a href="${ pageContext.request.contextPath}/board?a=index&p=${p-1}">◀</a></li>
 						</c:if>
 						<c:choose>
 							<c:when test="${p==1 }">
@@ -106,7 +106,7 @@ UserVo authUser = (UserVo) session.getAttribute("authUser");
 							</c:when>
 						</c:choose>
 						<c:if test="${p<size/4}">
-							<li><a href="">▶</a></li>
+							<li><a href="${ pageContext.request.contextPath}/board?a=index&p=${p+1}">▶</a></li>
 						</c:if>
 					</ul>
 
